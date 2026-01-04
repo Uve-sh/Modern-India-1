@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern India - Official Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: #f8f9fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+            padding: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🇮🇳";
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links button {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            color: #2c3e50;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-links button:hover {
+            background: #FF9933;
+            color: white;
+            border-color: #FF9933;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,153,51,0.3);
+        }
+
+        .nav-links button.active {
+            background: #138808;
+            color: white;
+            border-color: #138808;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 3rem 2rem 2rem;
+            color: white;
+        }
+
+        .hero-overlay h1 {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            background: white;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        h1 {
+            color: #FF9933;
+            margin-bottom: 1.5rem;
+            font-size: 2.8rem;
+            border-bottom: 4px solid #138808;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        h2 {
+            color: #138808;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+            font-size: 2rem;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5e6 0%, #e6f7e6 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 6px solid #FF9933;
+            margin: 2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF9933;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #138808;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .two-column img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-overlay h1 {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <nav>
+                <div class="logo">Modern India</div>
+                <div class="nav-links">
+                    <button onclick="showPage('home')" class="active">Home</button>
+                    <button onclick="showPage('history')">History</button>
+                    <button onclick="showPage('economy')">Economy</button>
+                    <button onclick="showPage('technology')">Technology</button>
+                    <button onclick="showPage('culture')">Culture</button>
+                    <button onclick="showPage('challenges')">Challenges</button>
+                    <button onclick="showPage('future')">Future</button>
+                    <button onclick="showPage('conclusion')">Conclusion</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="home" class="page active">
+        <div class="hero-section">
+            <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&h=450&fit=crop" alt="India Gate" class="hero-image">
+            <div class="hero-overlay">
+                <h1>Welcome to Modern India</h1>
+            </div>
+        </div>
+        <div class="content">
+            <p>India, officially the Republic of India, stands as the world's largest democracy and one of the fastest-growing major economies. With a population exceeding 1.4 billion people, India represents a unique blend of ancient traditions and modern aspirations, creating a dynamic nation that bridges the past and future.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">1.4B+</span>
+                    <span class="stat-label">Population</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5th</span>
+                    <span class="stat-label">Largest Economy</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">22</span>
+                    <span class="stat-label">Official Languages</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">28</span>
+                    <span class="stat-label">States & 8 UTs</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Aspects of Modern India</h2>
+                <div class="section-grid">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1544413660-299165566b1d?w=400&h=220&fit=crop" alt="Democracy" class="card-image">
+                        <div class="card-content">
+                            <h3>World's Largest Democracy</h3>
+                            <p>India conducts the world's largest democratic elections with over 900 million eligible voters. The Election Commission of India manages this massive exercise, ensuring free and fair elections across the nation's diverse geography.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=220&fit=crop" alt="IT Hub" class="card-image">
+                        <div class="card-content">
+                            <h3>Global IT Powerhouse</h3>
+                            <p>India is the world's leading destination for IT services and software development. Cities like Bangalore, Hyderabad, and Pune have emerged as major technology hubs, housing global tech giants and innovative startups.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=400&h=220&fit=crop" alt="Cultural Heritage" class="card-image">
+                        <div class="card-content">
+                            <h3>Rich Cultural Heritage</h3>
+                            <p>India's cultural diversity is unparalleled, with multiple religions, languages, festivals, and traditions coexisting harmoniously. This diversity is celebrated as the nation's greatest strength and identity.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=400&h=220&fit=crop" alt="Youth Power" class="card-image">
+                        <div class="card-content">
+                            <h3>Youthful Nation</h3>
+                            <p>With a median age of 28 years, India has the world's largest youth population. This demographic advantage positions India as a future global workforce powerhouse and driver of innovation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h2>India's Global Standing</h2>
+                <p>Modern India has emerged as a significant player in international affairs, contributing to global peacekeeping missions, leading climate action initiatives, and playing a crucial role in international organizations like the UN, G20, and BRICS. India's soft power through yoga, Ayurveda, and Bollywood has created a positive global image.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="history" class="page">
+        <div class="hero-section">
+            <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=450&fit=crop" alt="Historical Monument" class="hero-image">
+            <div class="hero-overlay">
+                <h1>Historical Background</h1>
+            </div>
+        </div>
+        <div class="content">
+            <p>The journey of Modern India began on August 15, 1947, when the nation gained independence from British colonial rule after nearly 200 years. This marked the birth of the world's largest democracy and the beginning of an extraordinary transformation.</p>
+
+            <div class="section">
+                <div class="two-column">
+                    <div>
+                        <h2>The Independence Movement</h2>
+                        <p>Led by Mahatma Gandhi's philosophy of non-violence and civil disobedience, India's freedom struggle became a model for peaceful resistance worldwide. The movement united millions of Indians across diverse backgrounds in the common cause of independence.</p>
+                        <p>Key figures like Jawaharlal Nehru, Sardar Vallabhbhai Patel, and Dr. B.R. Ambedkar played crucial roles in shaping independent India's vision and establishing its democratic foundations.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1598887142487-3c854d51c408?w=500&h=300&fit=crop" alt="Independence Era">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Post-Independence Nation Building (1947-1991)</h2>
+                <div class="section-grid">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1577495508326-19a1b3cf65b7?w=400&h=220&fit=crop" alt="Constitution" class="card-image">
+                        <div class="card-content">
+                            <h3>Constitutional Framework</h3>
+                            <p>India adopted its Constitution on January 26, 1950, creating the world's longest written constitution. It established India as a sovereign, socialist, secular, democratic republic with fundamental rights for all citizens.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=220&fit=crop" alt="Agriculture" class="card-image">
+                        <div class="card-content">
+                            <h3>Green Revolution</h3>
+                            <p>The Green Revolution of the 1960s-70s transformed India from a food-deficit nation to self-sufficient. High-yielding crop varieties and modern farming techniques dramatically increased agricultural productivity.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=220&fit=crop" alt="Education" class="card-image">
+                        <div class="card-content">
+                            <h3>Educational Institutions</h3>
+                            <p>India established premier institutions like IITs, IIMs, and AIIMS, creating centers of excellence in technology, management, and medicine. These institutions became the backbone of India's skilled workforce.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h2>Economic Liberalization (1991)</h2>
+                <div class="two-column">
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=500&h=300&fit=crop" alt="Economic Growth">
+                    <div>
+                        <p>The year 1991 marked a watershed moment in India's history. Facing a severe balance of payments crisis, India initiated comprehensive economic reforms under the leadership of Prime Minister P.V. Narasimha Rao and Finance Minister Dr. Manmohan Singh.</p>
+                        <p>These reforms dismantled the License Raj, reduced tariffs, welcomed foreign investment, and liberalized various sectors. This transformation unleashed India's entrepreneurial spirit and integrated the nation into the global economy, setting the stage for unprecedented growth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="economy" class="page">
+        <div class="hero-section">
+            <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1400&h=450&fit=crop" alt="Modern Skyline" class="hero-image">
+            <div class="hero-overlay">
+                <h1>Economy</h1>
+            </div>
+        </div>
+        <div class="content">
+            <p>India's economy has undergone a remarkable transformation, evolving into the world's fifth-largest economy by nominal GDP and third-largest by purchasing power parity. With consistent growth rates and increasing global integration, India is poised to become one of the world's top three economies by 2030.</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">$3.7T</span>
+                    <span class="stat-label">GDP (Nominal)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">7%+</span>
+                    <span class="stat-label">Annual Growth Rate</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Unicorn Startups</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">$600B+</span>
+                    <span class="stat-label">Annual Exports</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Major Economic Sectors</h2>
+                <div class="section-grid">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=220&fit=crop" alt="IT Services" class="card-image">
+                        <div class="card-content">
+                            <h3>Information Technology</h3>
+                            <p>The IT sector contributes over 8% to India's GDP and employs millions. Indian IT companies like TCS, Infosys, and Wipro are global leaders. The sector exports over $150 billion worth of services annually.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=220&fit=crop" alt="Manufacturing" class="card-image">
+                        <div class="card-content">
+                            <h3>Manufacturing</h3>
+                            <p>The 'Make in India' initiative aims to increase manufacturing's GDP contribution to 25%. Key sectors include automobiles, pharmaceuticals, textiles, and electronics. India is becoming a global manufacturing hub.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=220&fit=crop" alt="Agriculture" class="card-image">
+                        <div class="card-content">
+                            <h3>Agriculture</h3>
+                            <p>India is the world's largest producer of milk, pulses, and spices. Agriculture employs about 45% of the workforce. Modern farming techniques and technology are transforming traditional practices.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=220&fit=crop" alt="Startups" class="card-image">
+                        <div class="card-content">
+                            <h3>Startup Ecosystem</h3>
+                            <p>India has the world's third-largest startup ecosystem with over 100 unicorns. E-commerce, fintech, edtech, and healthtech are booming sectors attracting billions in investment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h2>Financial Inclusion Revolution</h2>
+                <div class="two-column">
+                    <div>
+                        <p>India's digital payment revolution has been transformative. The Unified Payments Interface (UPI) processes over 10 billion transactions monthly, making India a global leader in digital payments. The Jan Dhan Yojana opened over 450 million bank accounts, bringing financial services to the unbanked.</p>
+                        <p>Direct Benefit Transfer (DBT) system has revolutionized welfare delivery, ensuring subsidies reach beneficiaries directly, reducing leakages and corruption. This digital infrastructure has become a model for other developing nations.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=300&fit=crop" alt="Digital Payments">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="technology" class="page">
+        <div class="hero-section">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&h=450&fit=crop" alt="Technology" class="hero-image">
+            <div class="hero-overlay">
+                <h1>Technology & Innovation</h1>
+            </div>
+        </div>
+        <div class="content">
+            <p>India has emerged as a global technology leader, with innovations spanning space exploration, artificial intelligence, biotechnology, and digital infrastructure. The country's emphasis on STEM education and its large pool of technical talent have positioned it at the forefront of the digital revolution.</p>
+
+            <div class="section">
+                <h2>Space Exploration Excellence</h2>
+                <div class="two-column">
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=500&h=300&fit=crop" alt="Space Technology">
+                    <div>
+                        <p>The Indian Space Research Organisation (ISRO) has achieved remarkable milestones with cost-effective space missions. The Chandrayaan-3 mission successfully landed on the Moon's south pole in 2023, making India the fourth country to achieve a lunar landing.</p>
+                        <p>The Mars Orbiter Mission (Mangalyaan) made India the first nation to reach Mars orbit in its maiden attempt. ISRO's satellite launch services are sought after globally due to their reliability and competitive pricing.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Digital Infrastructure Initiatives</h2>
+                <div class="section-grid">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=220&fit=crop" alt="Digital India" class="card-image">
+                        <div class="card-content">
+                            <h3>Aadhaar System</h3>
+                            <p>Aadhaar, the world's largest biometric identification system, covers over 1.3 billion residents. It has enabled financial inclusion, streamlined service delivery, and eliminated duplicate beneficiaries in welfare schemes.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?w=400&h=220&fit=crop" alt="5G Network" class="card-image">
+                        <div class="card-content">
+                            <h3>5G Rollout</h3>
+                            <p>India has launched one of the world's fastest 5G rollouts, with coverage expanding rapidly across major cities. This infrastructure is enabling innovations in IoT, smart cities, and industrial automation.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1535378620166-273708d44e4c?w=400&h=220&fit=crop" alt="AI Research" class="card-image">
+                        <div class="card-content">
+                            <h3>AI & Machine Learning</h3>
+                            <p>India is investing heavily in AI research and development. Indian AI startups are solving problems in healthcare, agriculture, education, and transportation using cutting-edge machine learning technologies.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=220&fit=crop" alt="Cybersecurity" class="card-image">
+                        <div class="card-content">
+                            <h3>Cybersecurity</h3>
+                            <p>With increasing digitalization, India is strengthening its cybersecurity infrastructure. The Indian Computer Emergency Response Team (CERT-In) coordinates national efforts to protect digital assets and critical infrastructure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h2>Innovation Ecosystem</h2>
+                <p>India's innovation ecosystem is thriving with government support through initiatives like Startup India, Atal Innovation Mission, and various incubation centers. The country produces the third-highest number of scientific publications globally and files increasing numbers of patents annually. Indian researchers are contributing significantly to global advancements in quantum computing, biotechnology, and renewable energy technologies.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="culture" class="page">
+        <div class="hero-section">
+            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1400&h=450&fit=crop" alt="Indian Culture" class="hero-image">
+            <div class="hero-overlay">
+                <h1>Culture & Society</h1>
+            </div>
+        </div>
+        <div class="content">
+            <p>Modern India represents a fascinating amalgamation of ancient traditions and contemporary values. The country's cultural landscape is incredibly diverse, reflecting its long history, multiple religions, numerous languages, and regional variations that together create a unique civilizational identity.</p>
+
+            <div class="section">
+                <h2>Unity in Diversity</h2>
+                <div class="section-grid">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=400&h=220&fit=crop" alt="Religious Harmony" class="card-image">
+                        <div class="card-content">
+                            <h3>Religious Plurality</h3>
+                            <p>India is home to all major world religions - Hinduism, Islam, Christianity, Sikhism, Buddhism, and Jainism. This religious diversity coexists peacefully, with festivals and traditions from different faiths celebrated nationwide.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=400&h=220&fit=crop" alt="Languages" class="card-image">
+                        <div class="card-content">
+                            <h3>Linguistic Diversity</h3>
+                            <p>With 22 officially recognized languages and over 19,500 dialects, India showcases remarkable linguistic diversity. Hindi and English serve as link languages, facilitating communication across regions.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=400&h=220&fit=crop" alt="Festivals" class="card-image">
+                        <div class="card-content">
+                            <h3>Festivals & Celebrations</h3>
+                            <p>India celebrates numerous festivals throughout the year - Diwali, Eid, Christmas, Holi, Durga Puja, and many more. These celebrations bring communities together and showcase India's cultural richness.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="two-column">
+                    <div>
+                        <h2>Arts & Entertainment</h2>
+                        <p>Indian cinema, particularly Bollywood, produces over 1,800 films annually in multiple languages, making it one of the world's largest film industries. Indian films have gained international recognition, with several winning prestigious awards at global film festivals.</p>
+                        <p>Classical Indian music and dance forms like Bharatanatyam, Kathak, Carnatic, and Hindustani music have ancient roots but continue to evolve. Contemporary Indian artists, musicians, and performers are gaining international acclaim and fusion forms are creating new expressions.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&h=300&fit=crop" alt="Performing Arts">
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h2>Social Transformation</h2>
+                <div class="two-column">
+                    <img src="https://images.
